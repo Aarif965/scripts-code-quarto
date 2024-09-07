@@ -2,7 +2,7 @@
 title: "Homework: Finding Your Way in R and Python"
 execute:
   error: true
-author: "Your Name"
+author: "Aarif Baksh"
 output: html_document
 ---
 
@@ -18,7 +18,10 @@ Consider the 6 counting words examples in the [textbook module](https://srvander
 
 ---
 
-Replace this line of text with your 2-3 sentences about script-mode, interactive mode, and command-line mode in R and Python
+Interactive mode is useful for 
+
+
+Script-mode execute pre-written code from a file, allowing users to run their codes multiple times. Interactive mode allows users to enter and execute commands line-by-line which is suitable for quick explorations but not for repeating analysis.Command-line mode enables users to execute scripts directly from the terminal or command prompt.   
 
 ---
 
@@ -36,7 +39,34 @@ Use the chunk below to define variables $a$, $b$, and $c$, where you define the 
 ```{r pythagorean-theorem-r}
 # Your pythagorean theorem code goes here
 
+a <- 12
+b <- 15
+
+c <- sqrt(a^2+b^2)
+cat("a=",a, "b=",b,"c=",c)
+
 ```
+
+```{python pythagorean-theorem-py}
+# Your pythagorean theorem code goes here
+
+import math
+
+a = 10
+b = 12
+
+c = math.sqrt(a**2+b**2)
+
+print("a=",a,"b=",b,"c=",c)
+
+```
+
+
+
+
+
+
+
 
 ## Quadratic Formula in Python
 
@@ -46,6 +76,34 @@ Use the chunk below to define variables $a$, $b$, and $c$, and then define $x1$ 
 
 ```{python quad-formula-py}
 # Your quadratic formula code goes here
+
+
+import random
+import math
+import cmath  # for complex numbers
+
+# Randomly select values for a, b, and c
+a = random.randint(1, 20)
+b = random.randint(1, 20)
+c = random.randint(1, 20)
+
+
+discriminant = b**2 - 4*a*c # Calculate the discriminant to determine nature of roots
+
+# Check if the roots are complex or real
+if discriminant >= 0:
+    x1 = (-b + math.sqrt(discriminant)) / (2*a)
+    x2 = (-b - math.sqrt(discriminant)) / (2*a)
+    print("Values selected: a =", a, "b =", b, "c =", c)          #Alternatively print(f"Values selected: a = {a}, b = {b}, c = {c}")
+    print("The roots are real: Root 1 =", x1, "Root 2 =", x2)     # Alternatively print(f"The roots are complex: Root 1 = {x1}, Root 2 = {x2}")
+
+
+else:
+    x1 = (-b + cmath.sqrt(discriminant)) / (2*a)
+    x2 = (-b - cmath.sqrt(discriminant)) / (2*a)
+    print("Values selected: a =", a, "b =", b, "c =", c)          #Alternatively print(f"Values selected: a = {a}, b = {b}, c = {c}")
+    print("The roots are complex: Root 1 =", x1, "Root 2 =", x2)  # Alternatively print(f"The roots are complex: Root 1 = {x1}, Root 2 = {x2}")
+
 
 ```
 
@@ -70,15 +128,47 @@ ggplot(salary, aes(x = Hire.Year, y = Salary, label = Name)) +
 
 # This displays the salary object
 salary
+
+summary(salary)
+
 ```
 
 ------------------------------------------------------------------------
 
-The problem with the data is:
+The problem with the data is: the salary for Michael Scott had an extra character ($) which was not recognized as being numerically bigger than any of the other salary values. Another issue was that two text labels on the scatterplot extended beyond the plot area, making them only partially visible.     
 
 Here is how I solved the problem:
 
 ```{r cleaning-the-data-r}
 # Your implementation code goes here
 
+# This line reads in a tab-separated data file with a header naming the columns
+salary <- read.table("02-data.tsv", sep = "\t", header = T)
+
+install.packages("readr")
+
+library(readr)
+
+salary$Salary[1] <- parse_number(salary$Salary[1])
+
+# This code plots labels for each individual at location (x, y)
+library(ggplot2)
+ggplot(salary, aes(x = Hire.Year, y = Salary, label = Name)) + 
+  geom_label()
+
+install.packages("ggrepel")
+library(ggrepel)
+
+?geom_label_repel
+
+ggplot(salary, aes(x = Hire.Year, y = Salary, label = Name)) + 
+  geom_label_repel()
+
+
+# This displays the salary object
+salary
+
+#Interpret plot for 1/2 point
+
+#The scatterplot shows a negative relationship between year of hire and salary. Specifically, individuals hired more recently tend to have lower salaries compared to those who were hired earlier. This trend suggests that people who were hired for a longer period of time, and are therefore more experienced, tend to have higher salaries than those who are relatively newer at the job. 
 ```
