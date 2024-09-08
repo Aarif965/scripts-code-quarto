@@ -155,7 +155,7 @@ summary(salary)
 
 The problem with the data is: the salary for Michael Scott had an extra character ($) which was not recognized as being numerically bigger than any of the other salary values. Another issue was that two text labels on the scatterplot extended beyond the plot area, making them only partially visible.     
 
-Here is how I solved the problem:
+Here is how I solved the problem: See Code Below
 
 ```{r cleaning-the-data-r}
 # Your implementation code goes here
