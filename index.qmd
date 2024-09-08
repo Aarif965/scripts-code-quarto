@@ -18,7 +18,7 @@ Consider the 6 counting words examples in the [textbook module](https://srvander
 
 ---
 
-Script-mode execute pre-written code from a file, allowing users to run their codes multiple times. Interactive mode allows users to enter and execute commands line-by-line which is suitable for quick explorations but not for repeating analysis.Command-line mode enables users to execute scripts directly from the terminal or command prompt.   
+Script-mode executes pre-written code from a file, allowing users to run their codes multiple times. Interactive mode allows users to enter and execute commands line-by-line which is suitable for quick explorations but not for repeating analysis.Command-line mode enables users to execute scripts directly from the terminal or command prompt.   
 
 ---
 
@@ -58,13 +58,6 @@ print("a=",a,"b=",b,"c=",c)
 
 ```
 
-
-
-
-
-
-
-
 ## Quadratic Formula in Python
 
 $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
@@ -103,6 +96,34 @@ else:
 
 
 ```
+
+
+```{r quad-formula-r}
+# Your quadratic formula code goes here
+
+# Randomly select values for a, b, and c
+a <- sample(1:20,1) 
+b <- sample(1:20,1)
+c <- sample(1:20,1)
+
+
+discriminant = b^2 - 4*a*c # Calculate the discriminant to determine nature of roots
+
+# Check if the roots are complex or real
+if (discriminant >= 0){
+    x1 <- (-b + sqrt(discriminant)) / (2*a)
+    x2 <- (-b - sqrt(discriminant)) / (2*a)
+    cat("Values selected: a =", a, "b =", b, "c =", c, "\n")          
+    cat("The roots are real: Root 1 =", x1, "Root 2 =", x2)   
+} else {
+    x1 <- (-b + sqrt(as.complex(discriminant))) / (2*a)
+    x2 <- (-b - sqrt(as.complex(discriminant))) / (2*a)
+    cat("Values selected: a =", a, "b =", b, "c =", c, "\n")          
+    cat("The roots are complex: Root 1 =", x1, "Root 2 =", x2)  
+}
+
+```
+
 
 # Debugging practice
 
@@ -146,7 +167,7 @@ install.packages("readr")
 
 library(readr)
 
-salary$Salary[1] <- parse_number(salary$Salary[1])
+salary$Salary[1] <- parse_number(salary$Salary[1]) #Access Michael's salary and remove the '$' character
 
 # This code plots labels for each individual at location (x, y)
 library(ggplot2)
@@ -159,7 +180,7 @@ library(ggrepel)
 ?geom_label_repel
 
 ggplot(salary, aes(x = Hire.Year, y = Salary, label = Name)) + 
-  geom_label_repel()
+  geom_label_repel() #Prevent labels from going off screen
 
 
 # This displays the salary object
